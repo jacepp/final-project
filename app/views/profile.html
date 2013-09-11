@@ -1,5 +1,44 @@
-<h1>Boom goes the dynamite!</h1>
+<h1>Customer Profile</h1>
 
-<div>{{customer.name}}</div>
-<div>{{customer.address}}</div>
-<div>{{customer.favorites}}</div>
+
+<div class="row-fluid">
+  <div class="span3 fm-panel">
+    <div ng-dblclick="startEditing(cName);">
+      <span ng-hide="cName.editing">{{cName.name}}</span>
+        <form ng-submit="doneEditing('name', cName)" ng-show="cName.editing">
+          <input type="text" class="input-medium" ng-model="cName.name" ng-blur="doneEditing('name', cName)" ng-focus="cName == editedItem">
+        </form>
+    </div>
+    <div ng-dblclick="startEditing(cAddress);">
+      <span ng-hide="cAddress.editing">{{cAddress.name}}</span>
+        <form ng-submit="doneEditing('address', cAddress)" ng-show="cAddress.editing">
+          <input type="text" class="input-medium" ng-model="cAddress.name" ng-blur="doneEditing('address', cAddress)" ng-focus="cAddress == editedItem">
+        </form>
+    </div>
+  </div>
+
+  <div class="span9 fm-panel fm-restaurant-list">
+    <h4>
+      <ng-pluralize count="favorites.length"
+                    when="{'0'    : 'No favorite restaurants. :-(',
+                           'one'  : '1 favorite restaurant!',
+                           'other': '{} favorite restaurants!'}">
+      </ng-pluralize>
+    </h4>
+
+    <table class="table table-hover table-striped">
+      <tr>
+        <th>Name</th>
+      </tr>
+      <tr ng-repeat="restaurant in favorites = (filterFavorites())">
+        <td>
+          <a href="#/menu/{{restaurant.id}}">
+            <img class="img-rounded pull-left" ng-src="img/restaurants/{{restaurant.id}}.jpg">
+            <b>{{restaurant.name}}</b>
+          </a>
+          <p>{{restaurant.description}}</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

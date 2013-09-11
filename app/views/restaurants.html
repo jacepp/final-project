@@ -59,7 +59,7 @@
           <fm-rating ng-model="$parent.restaurant.rating" readonly="true"></fm-rating>
         </td>
         <td>
-          <input type="checkbox" ng-model="favorite" ng-change='isFavorite({{favorite}}, "{{restaurant.id}}", "{{restaurant.name}}", "{{restaurant.description}}")'>
+          <input type="checkbox" ng-model="restaurant.favorite" ng-change='isFavorite({{restaurant.favorite}}, "{{restaurant.id}}", "{{restaurant.name}}", "{{restaurant.description}}")' ng-checked="restaurant.favorite">
         </td>
       </tr>
     </table>

@@ -3,8 +3,6 @@
 foodMeApp.controller('RestaurantsController',
     function RestaurantsController($scope, customer, $location, Restaurant, localStorage) {
 
-  $scope.favorite = false;
-
   if (!customer.address) {
     $location.url('/customer');
   }
@@ -20,6 +18,14 @@ foodMeApp.controller('RestaurantsController',
 
   function filterAndSortRestaurants() {
     $scope.restaurants = [];
+    var favorites;
+    var customerObj = customer.favorites;
+
+    if (typeof customerObj == "string") {
+      favorites = JSON.parse(customerObj);
+    } else {
+      favorites = customerObj;
+    }
 
     // filter
     angular.forEach(allRestaurants, function(item, key) {
@@ -33,6 +39,11 @@ foodMeApp.controller('RestaurantsController',
 
       if (filter.cuisine.length && filter.cuisine.indexOf(item.cuisine) === -1) {
         return;
+      }
+
+      item.favorite = false;
+      if (favorites[item.id] != null) {
+        item.favorite = true;
       }
 
       $scope.restaurants.push(item);
@@ -92,7 +103,7 @@ foodMeApp.controller('RestaurantsController',
   $scope.isFavorite = function(chk, id, name, description) {
     var favorites;
     var customerObj = customer.favorites;
-    
+
     if (chk == false) { // I'm checking for false because ng-change passes the "old" value of the model
       if (typeof customerObj == "string") {
         favorites = JSON.parse(customerObj);
@@ -100,7 +111,7 @@ foodMeApp.controller('RestaurantsController',
         favorites = customerObj;
       }
 
-      favorites[id] = [];      
+      favorites[id] = [];
       var restaurant = { "id": id, "name": name, "description": description };
       favorites[id].push(restaurant);
       customer.favorites = JSON.stringify(favorites);
@@ -110,5 +121,4 @@ foodMeApp.controller('RestaurantsController',
       customer.favorites = JSON.stringify(favorites);
     }
   };
-
 });

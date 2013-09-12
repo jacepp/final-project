@@ -1,0 +1,14 @@
+<div ng-dblclick="startEditing(cName);">
+  <label>Your Name:</label>
+  <span ng-hide="cName.editing">{{cName.name}}</span>
+    <form ng-submit="doneEditing('name', cName)" ng-show="cName.editing">
+      <input type="text" class="input-medium" ng-model="cName.name" ng-blur="doneEditing('name', cName)" ng-focus="cName == editedItem">
+    </form>
+</div>
+<div class="personal" ng-dblclick="startEditing(cAddress);">
+  <label>You Address:</label>
+  <span ng-hide="cAddress.editing">{{cAddress.name}}</span>
+    <form ng-submit="doneEditing('address', cAddress)" ng-show="cAddress.editing">
+      <input type="text" class="input-medium" ng-model="cAddress.name" ng-blur="doneEditing('address', cAddress)" ng-focus="cAddress == editedItem">
+    </form>
+</div>

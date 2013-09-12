@@ -1,6 +1,7 @@
 <h1>Customer Profile</h1>
 
 <div class="row-fluid">
+  <!-- Decided to use an alternative method to adding a template partial and controller -->
   <div class="span3 fm-panel" ng-include="" src=" 'views/info.html' " ng-controller="InfoController"></div>
 
   <div class="span9 fm-panel fm-restaurant-list">
@@ -16,6 +17,9 @@
       <tr>
         <th>Name</th>
       </tr>
+      <!-- Custom filter on this ng-repeat but it still causes an error (non-fatal). It has to do with the filter not
+      returning the same type of object that it was given. The strange thing is that even if I instantiate the
+      variable "favorites" as an array and return an array from the filter function, I still get an error. -->
       <tr ng-repeat="restaurant in favorites = (filterFavorites())">
         <td>
           <a href="#/menu/{{restaurant.id}}">
